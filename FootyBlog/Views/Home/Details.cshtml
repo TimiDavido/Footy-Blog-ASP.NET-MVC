@@ -1,0 +1,75 @@
+﻿@using FootyBlog.Models
+@model BlogDetailsViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Footy Blog</title>
+
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>FOOTY BLOG</h1>
+
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/create">Create Post</a>
+        </div>
+    </div>
+
+ 
+    <div class="article">
+        @if (Model.Blog != null)
+            {
+            <h2>@Model.Blog.Title</h2>
+            <img src="@Model.Blog.ImagePath" />
+            <p>
+                <em>
+                    Posted on: @Model.Blog.PostDate.ToString("dd MMM yyyy")
+                </em>
+            </p>
+
+            <p>
+                @Model.Blog.Content
+            </p>
+            <form method="post" action="/delete/@Model.Blog.Id">
+            <button type="submit">Delete Post</button>    
+            </form>
+            }
+
+    </div>
+
+ 
+    <div class="other-posts">
+
+        <h2>Other Posts</h2>
+
+        <div class="article-cards">
+                @if(Model.OtherPosts != null)
+                {
+                @foreach (var post in Model.OtherPosts)
+                {
+                    <div class="card">
+
+                        <img src="@post.ImagePath" alt="@post.Title" />
+
+                        <h2>@post.Title</h2>
+
+                        <a href="/details/@post.Id">
+                            Read More
+                        </a>
+
+                    </div>
+                }
+
+                }
+           
+        </div>
+
+    </div>
+
+</body>
+</html>

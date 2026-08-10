@@ -1,0 +1,209 @@
+﻿body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background-color: darkblue;
+    padding: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    color: white;
+    text-align: center;
+}
+
+.nav {
+    right: 20px;
+    top: 50%;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.content {
+    display: flex;
+    margin: 20px;
+}
+
+.news {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.card {
+    width: 45%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    }
+
+.sidebar {
+    width: 25%;
+}
+
+.sidebar h2 {
+    border-bottom: 2px solid darkblue;
+    padding-bottom: 10px;
+ }
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+
+.card h2 {
+   font-size: 22px;
+}
+
+.card a {
+    display: inline-block;
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+.about,
+.contact {
+    width: 80%;
+    margin: 40px auto;
+}
+
+.about h2,
+.contact h2 {
+     color: darkblue;
+     border-bottom: 2px solid darkblue;
+     padding-bottom: 10px;
+}
+
+.about p,
+.contact p {
+    line-height: 1.6;
+}
+
+.article {
+    width: 80%;
+    margin: 40px auto;
+}
+
+.article h2 {
+   text-align: center;
+}
+
+.article img {
+   width: 100%;
+   height: 500px;
+   object-fit: cover;
+   margin: 20px 0;
+}
+
+.article p {
+   line-height: 1.8;
+   font-size: 18px;
+}
+
+.other-posts {
+    width: 80%;
+    margin: 40px auto;
+}
+
+.other-posts h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: darkblue;
+    border-bottom: 2px solid darkblue;
+    padding-bottom: 10px;
+    }
+
+.article-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.article-cards .card {
+   width: 30%;
+   border: 1px solid lightgray;
+   border-radius: 5px;
+   padding: 10px;
+   box-sizing: border-box;
+}
+
+.article-cards .card img {
+   width: 100%;
+   height: 180px;
+   object-fit: cover;
+}
+
+.create-container {
+    width: 50%;
+    margin: 40px auto;
+    padding: 30px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .create-container h2 {
+        text-align: center;
+        color: darkblue;
+        margin-bottom: 30px;
+    }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .form-group textarea {
+        height: 200px;
+        resize: vertical;
+    }
+
+    .form-group input[type="file"] {
+        width: 100%;
+    }
+
+.create-container button {
+    display: block;
+    margin: 20px auto 0;
+    background-color: darkblue;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
