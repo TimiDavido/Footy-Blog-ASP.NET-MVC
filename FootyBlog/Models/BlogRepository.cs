@@ -5,7 +5,12 @@ namespace FootyBlog.Models
 {
     public class BlogRepository
     {
-        private readonly string _filePath = "Data/posts.json";
+        private readonly string? _filePath;
+
+        public BlogRepository(IConfiguration configuration)
+        {
+            _filePath = configuration["BlogSettings:FilePath"];
+        }
         public List<Blog> GetAllPosts()
         {
             List<Blog>? blog = JsonSerializer.Deserialize<List<Blog>>(File.ReadAllText(_filePath));
@@ -47,6 +52,27 @@ namespace FootyBlog.Models
                 if (posts[i].Id == Id)
                 {
                     posts.RemoveAt(i);
+                    break;
+                }
+            }
+
+            string json = JsonSerializer.Serialize(posts);
+            File.WriteAllText(_filePath, json);
+        }
+
+        public void UpdatePost(Blog blog)
+        {
+            List<Blog> posts = GetAllPosts();
+            
+            foreach(Blog post in posts)
+            {
+                if (post.Id == blog.Id)
+                {
+                    post.PostDate = DateTime.Now;
+                    post.Content = blog.Content;
+                    post.ImagePath = blog.ImagePath;
+                    post.Title = blog.Title;
+
                     break;
                 }
             }
