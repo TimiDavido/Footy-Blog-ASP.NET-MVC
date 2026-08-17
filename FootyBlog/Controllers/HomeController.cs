@@ -1,40 +1,30 @@
 ﻿using FootyBlog.Models;
+using FootyBlog.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FootyBlog.Controllers
 {
     public class HomeController : Controller
     {
-        private BlogRepository blogRepository = new BlogRepository();
+        private readonly IBlogService _blogService;
+
+        public HomeController(IBlogService blogService)
+        {
+            _blogService = blogService;
+        }
 
         [Route("/index")]
         [Route("/")]
         public IActionResult Index()
         {
-            List<Blog> posts = blogRepository.GetAllPosts();
+            List<Blog> posts = _blogService.GetAllPosts();
             return View(posts);
         }
 
         [Route("/details/{Id}")]
         public IActionResult Details(int Id)
         {
-            Blog? post = blogRepository.GetPostById(Id);
-            List<Blog> otherPosts = blogRepository.GetAllPosts();
-            List<Blog> allPosts = new List<Blog>();
-
-            foreach (Blog blog in otherPosts)
-            {
-                if (blog.Id != Id)
-                {
-                    allPosts.Add(blog);
-                }
-            }
-
-            BlogDetailsViewModel model = new BlogDetailsViewModel
-            {
-                Blog = post,
-                OtherPosts = allPosts
-            };
+            BlogDetailsViewModel model = _blogService.GetBlogDetails(Id);
             return View(model);
         }
 
@@ -46,27 +36,14 @@ namespace FootyBlog.Controllers
 
         [HttpPost]
         [Route("/create")]
-        public IActionResult Create(Blog blog, IFormFile image)
+        public IActionResult Create(BlogDto dto)
         {
-            if(!ModelState.IsValid || image == null)
+            if(!ModelState.IsValid)
             {
-                return View();
+                return View(dto);
             }
 
-            string folder = Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot",
-                "images");
-
-                string filePath = Path.Combine(folder, image.FileName);
-
-                using (FileStream stream = new FileStream(filePath, FileMode.Create))
-                {
-                    image.CopyTo(stream);
-                }
-
-                blog.ImagePath = "/images/" + image.FileName;
-
-            blogRepository.AddPost(blog);
+            _blogService.AddPost(dto);
             return RedirectToAction("Index");
         }
 
@@ -74,8 +51,27 @@ namespace FootyBlog.Controllers
         [Route("/delete/{Id}")]
         public IActionResult Delete(int Id)
         {
-            blogRepository.DeletePost(Id);
+            _blogService.DeletePost(Id);
             return RedirectToAction("index");
+        }
+
+        [Route("/edit/{Id}")]
+        public IActionResult Edit(int Id)
+        {
+            Blog? blog = _blogService.GetPostById(Id);
+            if(blog == null)
+            {
+                return NotFound();
+            }
+            return View(blog);
+        }
+
+        [HttpPost]
+        [Route("/edit/{Id}")]
+        public IActionResult Edit(int Id, Blog blog, IFormFile image)
+        {
+            _blogService.UpdatePost(Id, blog, image);
+            return RedirectToAction("Details", new { Id = Id });
         }
     }
 }
