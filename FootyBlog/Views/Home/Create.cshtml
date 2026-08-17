@@ -1,5 +1,4 @@
-﻿@using FootyBlog.Models
-@model Blog
+﻿@model BlogDto
 
 <!DOCTYPE html>
 <html>
@@ -38,6 +37,11 @@
                 <label>Image</label>
                 <input type="file" name="image">
             </div>
+
+            @if (!ViewData.ModelState.IsValid)
+                {
+                    <p>Please fill in all required fields</p>
+                }
 
             <button type="submit">Create Post</button>
 

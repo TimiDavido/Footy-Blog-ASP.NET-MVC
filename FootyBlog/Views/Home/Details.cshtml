@@ -1,5 +1,4 @@
-﻿@using FootyBlog.Models
-@model BlogDetailsViewModel
+﻿@model BlogDetailsViewModel
 
 <!DOCTYPE html>
 <html>
@@ -35,6 +34,11 @@
             <p>
                 @Model.Blog.Content
             </p>
+
+            <a href="/edit/@Model.Blog.Id">
+                <button type="button">Edit Post</button>
+            </a>
+
             <form method="post" action="/delete/@Model.Blog.Id">
             <button type="submit">Delete Post</button>    
             </form>

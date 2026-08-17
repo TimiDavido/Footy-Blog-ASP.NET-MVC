@@ -11,7 +11,7 @@
     <div class="header">
         <h1>FOOTY BLOG</h1>
 
-        <div class="nav">
+        <div class="nav"> 
             <a href="/">Home</a>
             <a href="/create">Create Post</a>
         </div>
@@ -23,8 +23,7 @@
 
             @foreach (var post in Model)
             {
-                <div class="card">
-
+                <div class="card">                 
                     <img src="@post.ImagePath" alt="@post.Title" />
 
                     <h2>@post.Title</h2>
