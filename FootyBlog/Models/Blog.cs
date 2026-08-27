@@ -25,6 +25,6 @@ namespace FootyBlog.Models
         public string? Content { get; set; }
 
         [Required]
-        public IFormFile Image{ get; set; }
+        public IFormFile? Image{ get; set; }
     }
 }
