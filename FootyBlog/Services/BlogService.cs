@@ -11,9 +11,23 @@ namespace FootyBlog.Services
              _blogRepository = blogRepository;
         }
 
-        public List<Blog> GetAllPosts()
+        //public List<Blog> GetAllPosts()
+        //{
+        //    return _blogRepository.GetAllPosts();
+        //}
+
+        public List<Blog> GetPosts(int page, int pageSize)
         {
-            return _blogRepository.GetAllPosts();
+            return _blogRepository.GetPosts(page, pageSize);
+        }
+
+        public List<Blog> GetRandomPosts(int id, int count)
+        {
+            return _blogRepository.GetRandomPosts(id, count);
+        }
+        public int GetTotalPostsCount()
+        {
+            return _blogRepository.GetTotalPostsCount();
         }
 
         public Blog? GetPostById(int id)
@@ -51,34 +65,14 @@ namespace FootyBlog.Services
 
         public BlogDetailsViewModel GetBlogDetails(int id)
         {
-            List<Blog> posts = _blogRepository.GetAllPosts();
-            Blog? post = null;
+            Blog? post = _blogRepository.GetPostById(id);
+            List<Blog> otherPosts = _blogRepository.GetRandomPosts(id, 6);
 
-            foreach (Blog blog in posts)
-            {
-                if (blog.Id == id)
-                {
-                    post = blog;
-                    break;
-                } 
-            }
-
-            List<Blog> otherPosts = new List<Blog> ();
-            foreach (Blog blog in posts)
-            {
-                if (blog.Id != id)
-                {
-                    otherPosts.Add(blog);
-                }
-            }
-
-            BlogDetailsViewModel model = new BlogDetailsViewModel
+            return new BlogDetailsViewModel
             {
                 Blog = post,
                 OtherPosts = otherPosts
             };
-           
-            return model;
         }
         public void UpdatePost(int Id, Blog blog, IFormFile image)
         {

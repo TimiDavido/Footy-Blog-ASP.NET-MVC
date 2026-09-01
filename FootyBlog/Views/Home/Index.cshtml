@@ -50,5 +50,13 @@
 
     </div>
 
+    <div class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+           <a href="/?page=@i">@i</a>
+        }
+    </div>
+
+
 </body>
 </html>

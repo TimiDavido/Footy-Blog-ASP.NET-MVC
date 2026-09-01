@@ -15,9 +15,17 @@ namespace FootyBlog.Controllers
 
         [Route("/index")]
         [Route("/")]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            List<Blog> posts = _blogService.GetAllPosts();
+            int pageSize = 6;
+            List<Blog> posts = _blogService.GetPosts(page, pageSize);
+
+            int totalPosts = _blogService.GetTotalPostsCount();
+
+            int totalPages = (int)Math.Ceiling((double)totalPosts / pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
             return View(posts);
         }
 

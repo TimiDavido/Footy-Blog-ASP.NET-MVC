@@ -207,3 +207,18 @@
     cursor: pointer;
     font-size: 16px;
 }
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    gap: 10px;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    color: blue;
+}

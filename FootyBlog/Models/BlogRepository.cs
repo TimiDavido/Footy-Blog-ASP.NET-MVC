@@ -21,6 +21,30 @@ namespace FootyBlog.Models
             }
         }
 
+        public List<Blog> GetPosts(int page, int pageSize)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string sql = """ SELECT * FROM Blogs ORDER BY Id DESC OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY """;
+                int offset = (page - 1) * pageSize;
+                return connection.Query<Blog>(
+                    sql,
+                    new
+                    {
+                        Offset = offset,
+                        PageSize = pageSize
+                    } ).ToList();
+            }
+        }
+
+        public int GetTotalPostsCount()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string sql = "SELECT COUNT(*) FROM Blogs";
+                return connection.ExecuteScalar<int>(sql);
+            }
+        }
         public Blog? GetPostById (int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -33,6 +57,22 @@ namespace FootyBlog.Models
             }
         }
 
+        public List<Blog> GetRandomPosts(int id, int count)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string sql = """ SELECT TOP (@Count) * FROM Blogs WHERE Id != @Id ORDER BY NEWID()""";
+
+                return connection.Query<Blog>(
+                    sql,
+                    new
+                    {
+                        Id = id,
+                        Count = count
+                    }).ToList();
+            }
+        }
+
         public void AddPost (Blog blog)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -42,12 +82,12 @@ namespace FootyBlog.Models
             }
         }
 
-        public void DeletePost(int Id)
+        public void DeletePost(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string sql = "DELETE FROM Blogs WHERE Id = @Id";
-                connection.Execute(sql, new { Id = Id });
+                connection.Execute(sql, new { Id = id });
             }
         }
 
