@@ -1,0 +1,26 @@
+﻿@using FootyBlog.Application.DTOs
+@model BlogDto
+@{
+    ViewData["Title"] = "Create Post";
+}
+<div class="create-container">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" name="Title">
+        </div>
+        <div class="form-group">
+            <label>Content</label>
+            <textarea name="Content"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input type="file" name="image">
+        </div>
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <p>Please fill in all required fields</p>
+        }
+        <button type="submit">Create Post</button>
+    </form>
+</div>

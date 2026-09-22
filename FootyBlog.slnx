@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="FootyBlog/FootyBlog.csproj" />
+  <Project Path="FootyBlog.Application/FootyBlog.Application.csproj" Id="5ed9cb02-4440-43e4-92a9-6771ea50d678" />
+  <Project Path="FootyBlog.Domain/FootyBlog.Domain.csproj" Id="5581bb5f-baf1-4004-86c1-f12d5d7e6649" />
+  <Project Path="FootyBlog.Infrastructure/FootyBlog.Infrastructure.csproj" Id="bbd3ea80-5e76-4ed3-99f8-5016fb55c712" />
+  <Project Path="FootyBlog.Presentation2/FootyBlog.Presentation.csproj" Id="7872d6c8-6645-4cc8-9f9e-78aef02765e4" />
 </Solution>

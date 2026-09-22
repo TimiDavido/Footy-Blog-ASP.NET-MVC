@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Footy Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="site-header-inner">
+
+            <a href="/" class="logo">FOOTY <span>BLOG</span></a>
+
+            <nav class="nav">
+                <a href="/">Home</a>
+                @if (User.IsInRole("Admin"))
+                    {
+                    <a href="/create">Create Post</a>
+                    }
+                
+            </nav>
+
+            <div class="auth-actions">
+                @if (User?.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <span class="welcome-text">Hi, @User.Identity.Name</span>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                        <button type="submit" class="btn btn-outline">Log out</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline">Sign In</a>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-solid">Join</a>
+                }
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+</body>
+</html>

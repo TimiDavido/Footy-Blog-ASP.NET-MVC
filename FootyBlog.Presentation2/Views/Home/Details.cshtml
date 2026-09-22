@@ -1,0 +1,114 @@
+﻿@using FootyBlog.Application.ViewModels
+@model BlogDetailsViewModel
+@{
+    ViewData["Title"] = "Post";
+}
+<div class="article">
+    @if (Model.Blog != null)
+    {
+        <h2>@Model.Blog.Title</h2>
+        <img src="@Model.Blog.ImagePath" />
+        <p>
+            <em>
+                Posted on: @Model.Blog.PostDate.ToString("dd MMM yyyy")
+            </em>
+        </p>
+        <p>@Model.Blog.Content</p>
+
+        <div class="like-section">
+
+           <form method="post" action="/like/@Model.Blog.Id">
+            <button type="submit">
+                @(Model.HasLiked ? "💔 Unlike" : "❤️ Like")
+            </button>    
+           </form>
+
+            <span>@Model.LikeCount Likes</span>
+
+        </div>
+
+        <div class="comments-section">
+
+            <h3>Comments</h3>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <form method="post" action="/comment/addcomment">
+
+                    <input type="hidden" name="blogId" value="@Model.Blog.Id" />
+
+                    <textarea name="content"
+                              placeholder="Write a comment..."
+                              rows="4"
+                              required></textarea>
+
+                    <button type="submit">Comment</button>
+
+                </form>
+            }
+            else
+            {
+                <p>
+                    <a href="/Account/Login">Sign in</a> to comment.
+                </p>
+            }
+
+ 
+            <div class="comments-list">
+
+                @if (Model.Comments != null && Model.Comments.Any())
+                {
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <div class="comment">
+
+                            <strong>@comment.userId</strong>
+
+                            <p>@comment.Content</p>
+
+                            <small>
+                                @comment.CreatedAt.ToString("dd MMM yyyy HH:mm")
+                            </small>
+
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No comments yet.</p>
+                }
+
+            </div>
+
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a href="/edit/@Model.Blog.Id">
+                <button type="button">Edit Post</button>
+            </a>
+
+            <form method="post" action="/delete/@Model.Blog.Id">
+                <button type="submit">Delete Post</button>
+            </form>
+        }
+    }
+</div>
+<div class="other-posts">
+    <h2>Other Posts</h2>
+    <div class="article-cards">
+        @if (Model.OtherPosts != null)
+        {
+            @foreach (var post in Model.OtherPosts)
+            {
+                <div class="card">
+                    <img src="@post.ImagePath" alt="@post.Title" />
+                    <h2>@post.Title</h2>
+                    <a href="/details/@post.Id">
+                        Read More
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>
