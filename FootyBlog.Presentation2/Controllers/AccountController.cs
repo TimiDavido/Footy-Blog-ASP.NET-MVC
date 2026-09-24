@@ -44,7 +44,7 @@ public class AccountController : Controller
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error.Description);
+                ModelState.AddModelError("Password", error.Description);
             }
             return View(dto);
         }
