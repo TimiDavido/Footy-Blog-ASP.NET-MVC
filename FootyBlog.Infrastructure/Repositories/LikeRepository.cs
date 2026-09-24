@@ -14,7 +14,7 @@ public class LikeRepository : ILikeRepository
         _connectionString = configuration.GetConnectionString("DefaultConnection");
     }
 
-    public async Task<bool> HasLikedAsync(string userId, int blogId)
+    public async Task<bool> HasLiked(string userId, int blogId)
     {
         using SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -35,7 +35,7 @@ public class LikeRepository : ILikeRepository
         return count > 0;
     }
 
-    public async Task AddLikeAsync(string userId, int blogId)
+    public async Task AddLike(string userId, int blogId)
     {
         using SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -52,7 +52,7 @@ public class LikeRepository : ILikeRepository
             });
     }
 
-    public async Task RemoveLikeAsync(string userId, int blogId)
+    public async Task RemoveLike(string userId, int blogId)
     {
         using SqlConnection connection = new SqlConnection(_connectionString);
 
@@ -70,7 +70,7 @@ public class LikeRepository : ILikeRepository
             });
     }
 
-    public async Task<int> GetLikeCountAsync(int blogId)
+    public async Task<int> GetLikeCount(int blogId)
     {
         using SqlConnection connection = new SqlConnection(_connectionString);
 

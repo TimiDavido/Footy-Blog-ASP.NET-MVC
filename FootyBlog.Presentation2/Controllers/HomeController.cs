@@ -35,18 +35,16 @@ namespace FootyBlog.Controllers
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
+
             return View(posts);
         }
 
         [Route("/details/{Id}")]
         public async Task<IActionResult> Details(int Id)
         {
-            string? userId = User.FindFirst(
-                System.Security.Claims.ClaimTypes.NameIdentifier
-            )?.Value;
+            string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
-            BlogDetailsViewModel model =
-                await _blogService.GetBlogDetails(Id, userId);
+            BlogDetailsViewModel model = await _blogService.GetBlogDetails(Id, userId);
 
             return View(model);
         }
@@ -113,7 +111,7 @@ namespace FootyBlog.Controllers
         {
             string userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value!;
 
-            await _likeService.ToggleLikeAsync(userId, Id);
+            await _likeService.ToggleLike(userId, Id);
 
             return RedirectToAction("Details", new { Id = Id });
         }

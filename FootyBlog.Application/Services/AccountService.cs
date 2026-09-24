@@ -10,7 +10,7 @@ public class AccountService : IAccountService
     {
         _userManager = userManager;
     }
-    public async Task<IdentityResult> RegisterAsync(RegisterDto dto)
+    public async Task<IdentityResult> Register(RegisterDto dto)
     {
         ApplicationUser user = new ApplicationUser
         {
@@ -22,7 +22,7 @@ public class AccountService : IAccountService
         return result;
     }
 
-    public async Task<bool> UsernameExistsAsync(string userName)
+    public async Task<bool> UsernameExists(string userName)
     {
         var user = await _userManager.FindByNameAsync(userName);
 

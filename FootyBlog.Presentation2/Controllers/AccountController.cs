@@ -30,7 +30,7 @@ public class AccountController : Controller
             return View(dto);
         }
 
-        bool exist = await _accountService.UsernameExistsAsync(dto.UserName);
+        bool exist = await _accountService.UsernameExists(dto.UserName);
 
         if (exist)
         {
@@ -38,7 +38,7 @@ public class AccountController : Controller
             return View(dto);
         }
 
-        var result = await _accountService.RegisterAsync(dto);
+        var result = await _accountService.Register(dto);
 
         if (!result.Succeeded)
         {

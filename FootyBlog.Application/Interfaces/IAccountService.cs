@@ -5,7 +5,7 @@ namespace FootyBlog.Application.Interfaces
 {
     public interface IAccountService
     {
-        Task<IdentityResult> RegisterAsync(RegisterDto dto);
-        Task<bool> UsernameExistsAsync(string UserName);
+        Task<IdentityResult> Register(RegisterDto dto);
+        Task<bool> UsernameExists(string UserName);
     }
 }

@@ -11,5 +11,6 @@ namespace FootyBlog.Domain.Entities
         public string userId { get; set; } = "";
         public string Content { get; set; } = "";
         public DateTime CreatedAt { get; set; }
+        public string? UserName { get; set; }
     }
 }

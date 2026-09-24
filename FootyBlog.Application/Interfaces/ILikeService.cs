@@ -3,10 +3,10 @@ namespace FootyBlog.Application.Interfaces
 {
     public interface ILikeService
     {
-        Task<bool> ToggleLikeAsync(string userId, int blogId);
+        Task<bool> ToggleLike(string userId, int blogId);
 
-        Task<int> GetLikeCountAsync(int blogId);
+        Task<int> GetLikeCount(int blogId);
 
-        Task<bool> HasLikedAsync(string userId, int blogId);
+        Task<bool> HasLiked(string userId, int blogId);
     }
 }

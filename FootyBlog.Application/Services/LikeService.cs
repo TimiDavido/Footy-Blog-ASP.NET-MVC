@@ -12,30 +12,30 @@ namespace FootyBlog.Application.Services
             _likeRepository = likeRepository;
         }
 
-        public async Task<bool> ToggleLikeAsync(string userId, int blogId)
+        public async Task<bool> ToggleLike(string userId, int blogId)
         {
-            bool hasLiked = await _likeRepository.HasLikedAsync(userId, blogId);
+            bool hasLiked = await _likeRepository.HasLiked(userId, blogId);
 
             if (hasLiked)
             {
-                await _likeRepository.RemoveLikeAsync(userId, blogId);
+                await _likeRepository.RemoveLike(userId, blogId);
 
                 return false;
             }
 
-            await _likeRepository.AddLikeAsync(userId, blogId);
+            await _likeRepository.AddLike(userId, blogId);
 
             return true;
         }
 
-        public async Task<int> GetLikeCountAsync(int blogId)
+        public async Task<int> GetLikeCount(int blogId)
         {
-            return await _likeRepository.GetLikeCountAsync(blogId);
+            return await _likeRepository.GetLikeCount(blogId);
         }
 
-        public async Task<bool> HasLikedAsync(string userId, int blogId)
+        public async Task<bool> HasLiked(string userId, int blogId)
         {
-            return await _likeRepository.HasLikedAsync(userId, blogId);
+            return await _likeRepository.HasLiked(userId, blogId);
         }
     }
 }

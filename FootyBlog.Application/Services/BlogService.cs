@@ -73,13 +73,13 @@ namespace FootyBlog.Application.Services
             List<Blog> otherPosts = await _blogRepository.GetRandomPosts(id, 8);
             List<Comment> comments = await _commentRepository.GetCommentsByBlogId(id);
 
-            int likeCount = await _likeService.GetLikeCountAsync(id);
+            int likeCount = await _likeService.GetLikeCount(id);
 
             bool hasLiked = false;
 
             if (userId != null)
             {
-                hasLiked = await _likeService.HasLikedAsync(userId, id);
+                hasLiked = await _likeService.HasLiked(userId, id);
             }
 
             return new BlogDetailsViewModel

@@ -29,17 +29,17 @@
 
         <div class="comments-section">
 
-            <h3>Comments</h3>
+            <h3>Comments (@(Model.Comments?.Count))</h3>
 
             @if (User.Identity?.IsAuthenticated == true)
             {
-                <form method="post" action="/comment/addcomment">
+                <form method="post" action="/comment/addcomment" class="comment-form">
 
                     <input type="hidden" name="blogId" value="@Model.Blog.Id" />
 
                     <textarea name="content"
                               placeholder="Write a comment..."
-                              rows="4"
+                              rows="3"
                               required></textarea>
 
                     <button type="submit">Comment</button>
@@ -61,15 +61,14 @@
                     @foreach (var comment in Model.Comments)
                     {
                         <div class="comment">
-
-                            <strong>@comment.userId</strong>
-
-                            <p>@comment.Content</p>
-
-                            <small>
-                                @comment.CreatedAt.ToString("dd MMM yyyy HH:mm")
-                            </small>
-
+                            <div class="comment-avatar">@comment.UserName.Substring(0, 1).ToUpper()</div>
+                            <div class="comment-body">
+                                <div class="comment-header">
+                                    <strong>@comment.UserName</strong>
+                                    <time>@comment.CreatedAt.ToString("dd MMM yyyy, HH:mm")</time>
+                                </div>
+                                <p>@comment.Content</p>
+                            </div>
                         </div>
                     }
                 }

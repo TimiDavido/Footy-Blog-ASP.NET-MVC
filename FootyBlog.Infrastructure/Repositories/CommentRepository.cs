@@ -41,16 +41,16 @@ namespace FootyBlog.Infrastructure.Repositories
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 string sql = @"
-                    SELECT Id, BlogId, UserId, Content, CreatedAt
-                    FROM Comments
-                    WHERE BlogId = @BlogId
-                    ORDER BY CreatedAt DESC";
+                        SELECT c.Id, c.UserId, c.BlogId, c.Content, c.CreatedAt, u.UserName FROM Comments c
+                        INNER JOIN Users u ON c.UserId = u.Id
+                        WHERE c.BlogId = @BlogId
+                        ORDER BY c.CreatedAt DESC";
 
                 var comments = (await connection.QueryAsync<Comment>(
                     sql,
-                    new { BlogId = blogId })).ToList();
+                    new { BlogId = blogId }));
 
-                return comments;
+                return comments.ToList();
             }
         }
 
