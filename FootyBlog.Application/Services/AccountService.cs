@@ -14,7 +14,8 @@ public class AccountService : IAccountService
     {
         ApplicationUser user = new ApplicationUser
         {
-            UserName = dto.UserName
+            UserName = dto.UserName,
+            Email = dto.Email
         };
 
         var result =  await _userManager.CreateAsync(user, dto.Password);
@@ -28,6 +29,17 @@ public class AccountService : IAccountService
 
         if (user != null && user.UserName == userName)
         { 
+            return true;
+        }
+        return false;
+    }
+
+    public async Task<bool> EmailExists(string email)
+    {
+        var user = await _userManager.FindByEmailAsync(email);
+
+        if (user != null && user.Email == email)
+        {
             return true;
         }
         return false;

@@ -7,5 +7,6 @@ namespace FootyBlog.Application.Interfaces
     {
         Task<IdentityResult> Register(RegisterDto dto);
         Task<bool> UsernameExists(string UserName);
+        Task<bool> EmailExists(string Email);
     }
 }

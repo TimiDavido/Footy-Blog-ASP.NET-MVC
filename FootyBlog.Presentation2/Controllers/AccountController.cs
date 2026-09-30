@@ -30,11 +30,19 @@ public class AccountController : Controller
             return View(dto);
         }
 
-        bool exist = await _accountService.UsernameExists(dto.UserName);
+        bool usernameExist = await _accountService.UsernameExists(dto.UserName);
 
-        if (exist)
+        if (usernameExist)
         {
-            TempData["DuplicateMessage"] = "Username already exists";
+            ModelState.AddModelError("UserName", "Username already exist");
+            return View(dto);
+        }
+
+        bool emailExist = await _accountService.EmailExists(dto.Email);
+
+        if (emailExist)
+        {
+            ModelState.AddModelError("Email", "Email already exist");
             return View(dto);
         }
 
@@ -62,7 +70,7 @@ public class AccountController : Controller
 
     [Route("Login")]
     [HttpPost]
-    public async Task<IActionResult> Login(RegisterDto dto)
+    public async Task<IActionResult> Login(RegisterDto dto, string? ReturnUrl)
     {
         if (!ModelState.IsValid)
         {
@@ -76,7 +84,7 @@ public class AccountController : Controller
             false);
 
         if (result.Succeeded)
-        {
+        {      
             return RedirectToAction("Index", "Home");
         }
 
