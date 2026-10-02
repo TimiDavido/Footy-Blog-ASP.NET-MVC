@@ -14,12 +14,14 @@ namespace FootyBlog.Controllers
         private readonly IBlogService _blogService;
         private readonly ILikeService _likeService;
         private readonly ICommentService _commentService;
+        private readonly IEmailService _emailService;
 
-        public HomeController(IBlogService blogService, ILikeService likeService, ICommentService commentService)
+        public HomeController(IBlogService blogService, ILikeService likeService, ICommentService commentService, IEmailService emailService)
         {
             _blogService = blogService;
             _likeService = likeService;
             _commentService = commentService;
+            _emailService = emailService;
         }
 
         [Route("/index")]
@@ -49,14 +51,12 @@ namespace FootyBlog.Controllers
             return View(model);
         }
 
-        [Authorize(Roles ="Admin")]
         [Route("/create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("/create")]
         public async Task<IActionResult> Create(BlogDto dto)
@@ -66,7 +66,11 @@ namespace FootyBlog.Controllers
                 return View(dto);
             }
 
-            await _blogService.AddPost(dto);
+            string? userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            var test = userId;
+
+            await _blogService.AddPost(dto, userId);
             return RedirectToAction("Index");
         }
 

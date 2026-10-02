@@ -9,10 +9,12 @@ public class AccountController : Controller
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IAccountService _accountService;
-    public AccountController(SignInManager<ApplicationUser> signInManager, IAccountService accountService)
+    private readonly IEmailService _emailService;
+    public AccountController(SignInManager<ApplicationUser> signInManager, IAccountService accountService, IEmailService emailService)
     {
         _signInManager = signInManager;
         _accountService = accountService;
+        _emailService = emailService;
     }
 
     [Route("Register")]
@@ -70,7 +72,7 @@ public class AccountController : Controller
 
     [Route("Login")]
     [HttpPost]
-    public async Task<IActionResult> Login(RegisterDto dto, string? ReturnUrl)
+    public async Task<IActionResult> Login(LoginDto dto)
     {
         if (!ModelState.IsValid)
         {
@@ -82,7 +84,7 @@ public class AccountController : Controller
             dto.Password,
             false,
             false);
-
+         
         if (result.Succeeded)
         {      
             return RedirectToAction("Index", "Home");

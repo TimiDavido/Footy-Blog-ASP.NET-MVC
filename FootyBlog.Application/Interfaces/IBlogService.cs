@@ -10,7 +10,7 @@ namespace FootyBlog.Application.Interfaces
         Task<int> GetTotalPostsCount();
         Task<List<Blog>> GetPosts(int page, int pageSize);
         Task<Blog?> GetPostById(int id);
-        Task AddPost(BlogDto dto);
+        Task AddPost(BlogDto dto, string? userId);
         Task DeletePost(int id);
         Task<BlogDetailsViewModel> GetBlogDetails(int id, string userId);
         Task UpdatePost(int Id, Blog blog, IFormFile image);

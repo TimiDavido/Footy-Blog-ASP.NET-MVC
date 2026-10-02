@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity;
 public class AccountService : IAccountService
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    public AccountService(UserManager<ApplicationUser> userManager)
+    private readonly IEmailService _emailService;
+    public AccountService(UserManager<ApplicationUser> userManager, IEmailService emailService)
     {
         _userManager = userManager;
+        _emailService = emailService;
     }
     public async Task<IdentityResult> Register(RegisterDto dto)
     {
@@ -19,6 +21,19 @@ public class AccountService : IAccountService
         };
 
         var result =  await _userManager.CreateAsync(user, dto.Password);
+
+
+        if(result.Succeeded)
+        {
+            var emailRequest = new SendSingleMailRequest
+            {
+                Receiver = dto.Email,
+                Subject = "Welcome to FootyBlog!",
+                Body = $"Hello {dto.UserName},\n\nThank you for registering at FootyBlog. We're excited to have you on board!"
+            };
+
+            await _emailService.SendEmail(emailRequest);
+        }
 
         return result;
     }

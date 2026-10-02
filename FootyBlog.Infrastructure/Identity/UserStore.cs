@@ -48,7 +48,7 @@ public class UserStore : IUserStore<ApplicationUser>, IUserPasswordStore<Applica
     {
         using SqlConnection connection = new SqlConnection(_connectionString);
 
-        string sql = " SELECT Id, UserName, NormalizedUserName, PasswordHash, RoleId FROM Users WHERE Id = @Id";
+        string sql = " SELECT Id, UserName, NormalizedUserName, PasswordHash, Email, RoleId FROM Users WHERE Id = @Id";
 
         return await connection.QueryFirstOrDefaultAsync<ApplicationUser>(
             sql,

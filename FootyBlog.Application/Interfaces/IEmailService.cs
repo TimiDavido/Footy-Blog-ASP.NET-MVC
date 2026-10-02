@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FootyBlog.Application.Interfaces
+﻿namespace FootyBlog.Application.Interfaces
 {
-    internal class IEmailService
+    public interface IEmailService
     {
+        Task<SendSingleMailResponse> SendEmail(SendSingleMailRequest dto);
     }
 }
+ 

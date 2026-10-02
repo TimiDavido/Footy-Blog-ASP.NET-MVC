@@ -4,9 +4,16 @@ using FootyBlog.Domain.Entities;
 using FootyBlog.Infrastructure.Identity;
 using FootyBlog.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient<IEmailService, EmailService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["NotificationBaseURL"]);
+});
+
 builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 

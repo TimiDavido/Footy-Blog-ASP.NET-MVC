@@ -74,7 +74,7 @@ namespace FootyBlog.Infrastructure.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string sql = "INSERT INTO Blogs (Title, Content, PostDate, ImagePath) VALUES (@Title, @Content, @PostDate, @ImagePath)";
+                string sql = "INSERT INTO Blogs (Title, Content, PostDate, ImagePath, UserId) VALUES (@Title, @Content, @PostDate, @ImagePath, @UserId)";
                 await connection.ExecuteAsync(sql, blog);
             }
         }
