@@ -9,12 +9,10 @@ public class AccountController : Controller
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IAccountService _accountService;
-    private readonly IEmailService _emailService;
-    public AccountController(SignInManager<ApplicationUser> signInManager, IAccountService accountService, IEmailService emailService)
+    public AccountController(SignInManager<ApplicationUser> signInManager, IAccountService accountService)
     {
         _signInManager = signInManager;
         _accountService = accountService;
-        _emailService = emailService;
     }
 
     [Route("Register")]

@@ -1,0 +1,55 @@
+﻿@using FootyBlog.Domain.Entities
+@model List<Blog>
+@{
+    ViewData["Title"] = "My Posts";
+}
+
+<div class="posts-table-wrapper">
+    <h2>My Posts</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="no-posts">You haven't written any posts yet.</p>
+    }
+    else
+    {
+        <table class="posts-table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Post Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var post in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(post.ImagePath))
+                            {
+                                <img src="@post.ImagePath" alt="@post.Title" class="table-thumb" />
+                            }
+                            else
+                            {
+                                <div class="table-thumb placeholder">No image</div>
+                            }
+                        </td>
+                        <td class="title-cell">@post.Title</td>
+                        <td>@post.PostDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <div class="row-actions">
+                                <a href="/edit/@post.Id" class="btn btn-outline">Edit</a>
+                                <form action="/delete/@post.Id" method="post"
+                                      onsubmit="return confirm('Delete this post?');">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

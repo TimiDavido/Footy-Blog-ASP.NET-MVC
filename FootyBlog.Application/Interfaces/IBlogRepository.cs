@@ -11,5 +11,6 @@ namespace FootyBlog.Application.Interfaces
         Task AddPost(Blog blog);
         Task DeletePost(int id);
         Task UpdatePost(Blog blog);
+        Task<List<Blog>> UsersPosts(string userId);
     }
 }

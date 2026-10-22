@@ -96,5 +96,17 @@ namespace FootyBlog.Infrastructure.Repositories
                 await connection.ExecuteAsync(sql, blog);
             }
         }
+
+        public async Task<List<Blog>> UsersPosts(string userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string sql = "SELECT * FROM Blogs WHERE UserId = @UserId ORDER BY Id DESC";
+
+                var posts = await connection.QueryAsync<Blog>(sql, new { UserId = userId });
+
+                return posts.ToList();
+            }
+        }
     }
 }

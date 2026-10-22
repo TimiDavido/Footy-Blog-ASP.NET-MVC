@@ -5,6 +5,7 @@ using FootyBlog.Application.ViewModels;
 using FootyBlog.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 
 namespace FootyBlog.Controllers
@@ -72,6 +73,16 @@ namespace FootyBlog.Controllers
 
             await _blogService.AddPost(dto, userId);
             return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [Route("/myposts")]
+        public async Task<IActionResult> MyPosts()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var posts = await _blogService.UserPosts(userId);
+            return View(posts);
         }
 
         [Authorize(Roles = "Admin")]

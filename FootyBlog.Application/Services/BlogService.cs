@@ -34,7 +34,7 @@ namespace FootyBlog.Application.Services
             return await _blogRepository.GetPostById(id);
         }
 
-        public async Task AddPost(BlogDto dto, string userId)
+        public async Task AddPost(BlogDto dto, string? userId)
         {
             if (dto.Image == null)
             {
@@ -114,6 +114,11 @@ namespace FootyBlog.Application.Services
                 existingBlog.ImagePath = "/images/" + image.FileName;
             }
             await _blogRepository.UpdatePost(existingBlog);
+        }
+
+        public async Task<List<Blog>> UserPosts(string userId)
+        {
+            return await _blogRepository.UsersPosts(userId);
         }
     }
 }

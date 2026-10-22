@@ -14,6 +14,7 @@ namespace FootyBlog.Application.Interfaces
         Task DeletePost(int id);
         Task<BlogDetailsViewModel> GetBlogDetails(int id, string userId);
         Task UpdatePost(int Id, Blog blog, IFormFile image);
+        Task<List<Blog>> UserPosts(string userId);
     }
 }
 
